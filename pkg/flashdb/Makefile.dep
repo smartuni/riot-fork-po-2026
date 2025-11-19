@@ -24,9 +24,12 @@ ifneq (,$(filter flashdb_mtd,$(USEMODULE)))
   USEMODULE += flashdb_fal
   USEMODULE += mtd
 else
-  ifeq ($(CPU),native)
-    CFLAGS += -DFDB_USING_FILE_POSIX_MODE
-  else
-    CFLAGS += -DFDB_USING_FILE_LIBC_MODE
-  endif
+  # If using afile-based storage backend for flashdb,
+  # choose the posix file mode on all platforms.
+  # On boards other than native this originally used the libc
+  # file mode (FDB_USING_FILE_LIBC_MODE). Hoewever, this
+  # resulted in unresolved errors in the file handling
+  # and inconsistencies between native and board behavior.
+  CFLAGS += -DFDB_USING_FILE_POSIX_MODE
+  USEMODULE += posix_filesystem
 endif
