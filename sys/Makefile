@@ -161,6 +161,9 @@ endif
 ifneq (,$(filter oneway_malloc,$(USEMODULE)))
   DIRS += oneway-malloc
 endif
+ifneq (,$(filter posix_filesystem,$(USEMODULE)))
+  DIRS += posix/filesystem
+endif
 ifneq (,$(filter posix_inet,$(USEMODULE)))
   DIRS += posix/inet
 endif
