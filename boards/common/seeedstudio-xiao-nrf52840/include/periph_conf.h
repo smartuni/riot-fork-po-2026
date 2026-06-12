@@ -95,6 +95,18 @@ static const i2c_conf_t i2c_config[] = {
 #define I2C_NUMOF           ARRAY_SIZE(i2c_config)  /**< Number of (preconfigured) I2C Buses */
 /** @} */
 
+static const pwm_conf_t pwm_config[] = {
+    {
+        NRF_PWM0, 
+        {
+            GPIO_PIN(0,02),
+            GPIO_PIN(0,10),
+        }
+    }
+};
+#define PWM_NUMOF           ARRAY_SIZE(pwm_config)
+
+
 #ifdef __cplusplus
 }
 #endif
