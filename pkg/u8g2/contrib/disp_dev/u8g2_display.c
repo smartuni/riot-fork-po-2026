@@ -44,7 +44,11 @@ int u8g2_display_init(u8g2_display_t *dev, const u8g2_display_params_t *params)
     else if (IS_USED(MODULE_PERIPH_I2C) && dev->params.i2c_address != 0) {
         DEBUG("u8g2_display_init: Initializing I2C display with addr: 0x%02x\n",
               dev->params.i2c_address);
+#if defined BOARD_SEEEDSTUDIO_XIAO_NRF52840_SENSE // If we are on the v2 board, we need the display rotated. This is hacky, I know.
         init(&dev->u8g2, U8G2_R0, u8x8_byte_hw_i2c_riotos, u8x8_gpio_and_delay_riotos);
+#else
+        init(&dev->u8g2, U8G2_R2, u8x8_byte_hw_i2c_riotos, u8x8_gpio_and_delay_riotos);
+#endif
         u8g2_SetI2CAddress(&dev->u8g2, dev->params.i2c_address);
     }
     else {
