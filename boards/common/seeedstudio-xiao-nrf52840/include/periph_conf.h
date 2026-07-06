@@ -42,9 +42,19 @@ static const uart_conf_t uart_config[] = {
 #endif
         .irqn       = UARTE0_UART0_IRQn,
     },
+    {
+        .rx_pin     = GPIO_PIN(0, 9),
+        .tx_pin     = GPIO_PIN(0, 10),
+#ifdef MODULE_PERIPH_UART_HW_FC
+        .rts_pin    = GPIO_UNDEF,
+        .cts_pin    = GPIO_UNDEF,
+#endif
+        .irqn       =  UARTE1_IRQn,
+    }
 };                                                  /**< UART Peripheral Configuration Structure */
 
 #define UART_0_ISR          (isr_uart0)             /**< Interrupt Service Routing for UART 0 */
+#define UART_1_ISR          (isr_uart1)
 
 #define UART_NUMOF          ARRAY_SIZE(uart_config) /**< Number of (preconfigured) UARTs */
 /** @} */
@@ -97,15 +107,15 @@ static const i2c_conf_t i2c_config[] = {
 
 static const pwm_conf_t pwm_config[] = {
     {
-        NRF_PWM0, 
+        NRF_PWM0,
         {
-            GPIO_PIN(0,02),
-            GPIO_PIN(0,10),
+            GPIO_PIN(0, 02),
+            GPIO_PIN(0, 10),
         }
     }
 };
-#define PWM_NUMOF           ARRAY_SIZE(pwm_config)
 
+#define PWM_NUMOF           ARRAY_SIZE(pwm_config)
 
 #ifdef __cplusplus
 }
